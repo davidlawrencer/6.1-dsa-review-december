@@ -45,7 +45,7 @@ node2.next =  node3
 //could do this as node1.next?.next = node3
 node2.next?.next?.next?.next?.next = node4
 
-print(node1.next)
+//print(node1.next)
 
 //(1)//first node -> (2)//second node -> (5)//third node
 //looking for a specific node has a runtime O(n) where n is the number of nodes that are connected
@@ -201,7 +201,7 @@ class Stack<T: Equatable> {
 // 1. what's at the front of line
 // 2. what's at the back of the line
 
-class Queue<T: Equatable> {
+class QueueClass<T: Equatable> {
     //implementing with an array!
     //could we do this with two stacks?
     //yes! we could have one stack that handles enqueuing, and a second that handles dequeuing.
@@ -235,18 +235,18 @@ class Queue<T: Equatable> {
     }
 }
 
-let queue = Queue<Int>()
-queue.enqueue(value: 3)
-queue.enqueue(value: 3)
-queue.enqueue(value: 3)
-queue.enqueue(value: 3)
-queue.enqueue(value: 3)
+//let queue = Queue<Int>()
+//queue.enqueue(value: 3)
+//queue.enqueue(value: 3)
+//queue.enqueue(value: 3)
+//queue.enqueue(value: 3)
+//queue.enqueue(value: 3)
+//
+//for _ in 1...5 {
+//    queue.dequeue()
+//}
 
-for _ in 1...5 {
-    queue.dequeue()
-}
-
-queue.count == 0
+//queue.count == 0
 
 //Dictionaries!
 
@@ -299,21 +299,8 @@ dict.values // these AREN'T necessarily unique
 //"left" and "right"
 //we can navigate through the tree by starting at the root and then going left or right from there. Ex: root?.left?.right?.left?.right?.left would bring us to a descendant TreeNode 5 levels away from the root
 
-class TreeNode<T: Comparable> {
-    let value: T
-    var left: TreeNode?
-    var right: TreeNode?
-    
-    init(value: T) {
-        self.value = value
-    }
-    
-    static func < (lhs: TreeNode<T>, rhs: TreeNode<T>) -> Bool {
-        return lhs.value < rhs.value
-    }
-}
 
-class Tree<T: Comparable> {
+class TreeClass<T: Comparable> {
     private var root: TreeNode<T>?
 //maybe i want a count?
     //but all i need in order to look for things, compare things, add things, or delete things is a reference to the root
@@ -331,4 +318,120 @@ class Tree<T: Comparable> {
     
 }
 
-//!@^ wants more quizzes
+class TreeNode<T:Comparable> {
+    var value: T
+    var left: TreeNode<T>?
+    var right: TreeNode<T>?
+    init(value: T) {
+        self.value = value
+    }
+}
+
+class LLNode<Key> {
+    let val: Key
+    var next: LLNode?
+    init(val: Key) {
+        self.val = val
+    }
+}
+
+struct Queue<T> {
+    private var head: LLNode<T>?
+    private var tail: LLNode<T>?
+    var isEmpty: Bool {
+        return head == nil
+    }
+    mutating func enQueue(_ newElement: T) {
+        let newNode = LLNode(val: newElement)
+        guard let tail = tail else {
+            self.head = newNode
+            self.tail = newNode
+            return
+        }
+        tail.next = newNode
+        self.tail = newNode
+    }
+    mutating func deQueue() -> T? {
+        guard let oldHead = head else {
+            return nil
+        }
+        self.head = oldHead.next
+        if oldHead.next == nil {
+            self.tail = nil
+        }
+        return oldHead.val
+    }
+    func peek() -> T? {
+        return self.head?.val
+    }
+}
+
+//Breadth-First Search 🥖🍞
+// We start at the root (first level)
+// at each level, we look from left to right for a value before continuing on to the next level
+
+func breadthFirstSearch<T>(root: TreeNode<T>) {
+    var myQueue = Queue<TreeNode<T>>()
+    
+    myQueue.enQueue(root)
+    
+    while !myQueue.isEmpty {
+        let currentNode = myQueue.deQueue()!
+        
+//        if currentNode.value == toFind {
+            print(currentNode.value)
+//        }
+        
+        if let leftNode = currentNode.left {
+            myQueue.enQueue(leftNode)
+        }
+        
+        if let rightChild = currentNode.right {
+            myQueue.enQueue(rightChild)
+        }
+    }
+}
+
+//this is our root
+let treeNode1 = TreeNode(value: 1)
+//these will be the children of our root
+let treeNode2 = TreeNode(value: 2)
+let treeNode3 = TreeNode(value: 3)
+
+treeNode1.left = treeNode2
+treeNode1.right = treeNode3
+//our tree currently:
+//          (1)
+//         L   R
+//       (2)   (3)
+//
+
+let treeNode5 = TreeNode(value: 5)
+let treeNode6 = TreeNode(value: 6)
+treeNode2.left = treeNode5
+treeNode2.right = treeNode6
+//our tree currently:
+//          (1)
+//         L   R
+//       (2)   (3)
+//      L   R
+//     (5)  (6)
+
+let treeNode7 = TreeNode(value: 7)
+let treeNode9 = TreeNode(value: 9)
+treeNode3.left = treeNode7
+treeNode3.right = treeNode9
+//our tree currently:
+//           (1)
+//         L     R
+//       (2)      (3)
+//      L   R     L   R
+//     (5)  (6)  (7)   (9)
+
+
+breadthFirstSearch(root: treeNode1)
+// prints from left to right at each level, and then at the next level
+// tree above will print 1, 2, 3, 5, 6, 7, 9
+
+
+//Depth-First Search ⚓️⚓️ -> We will review in the future
