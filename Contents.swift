@@ -429,7 +429,7 @@ treeNode3.right = treeNode9
 //     (5)  (6)  (7)   (9)
 
 
-breadthFirstSearch(root: treeNode1)
+//breadthFirstSearch(root: treeNode1)
 // prints from left to right at each level, and then at the next level
 // tree above will print 1, 2, 3, 5, 6, 7, 9
 
@@ -555,4 +555,59 @@ func printSomeAddedNumberOfTimes(phrase toPrint: String, aNumber: Int, bNumber: 
         print(toPrint)
     }
 }
+
+
+// Iterating
+// repeatedly looking through something
+// ex: looping
+// helps you automate a process
+// lets you perform the same operation multiple/n-number of times
+// all done in one function/program/algorithm "usage"
+
+//Recursion -> it's like iteration, but on a different level. whoa man
+//calling a function inside of a function!
+
+//wut?
+//we apply the same pattern as iterating, but in a function call to this same function being defined, and only need to provide some simple information in the "base case(s)." These base cases tend to build in the edge cases that would've been problems had we solved iteratively
+
+func sumFromOneToNIteratively(n: Int) -> Int {
+    guard n > 1 else {return 1}
+    var sum = 0
+    for i in 1...n {
+        sum += i
+    }
+    return sum
+}
+
+func sumFromOneToNRecursively(n: Int) -> Int {
+    guard n > 1 else {return 1}
+    return n + sumFromOneToNRecursively(n: n-1)
+}
+
+sumFromOneToNRecursively(n: 5)
+
+func factorialRecursively(n:Int) -> Int {
+    //let's figure out n!
+    guard n > 1 else { return 1 }
+    return n * factorialRecursively(n: n-1)
+}
+
+print(factorialRecursively(n: 1))
+print(factorialRecursively(n: 3))
+print(factorialRecursively(n: 10))
+print(factorialRecursively(n: 11))
+//danger danger danger!
+//we can get an infinite loop if we don't set up our base cases correctly.
+
+//n is the term (think of this like counting the number of items between commas from left to right... almost like an array's index) that we want to find the value for
+func fib(n: Int) -> Int {
+    guard n >= 1 else {return 0}
+    if n == 2 {return 1}
+    return fib(n: n-1) + fib(n: n-2)
+}
+
+// write a recursive function that take a sentence (a string with words in it) and returns the sentence in reverse order.
+// Hint: string.reverse doesn't do what we want here
+// "here is a string" -> "string a is here", not "gnirts a si ereh"
+//Advice: solve it iteratively first to find the pattern you'll want to apply recursively.
 
