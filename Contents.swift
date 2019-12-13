@@ -456,7 +456,7 @@ treeNode3.right = treeNode9
 func constantSpaceFunction(something: Int) {
     let anotherThing = something
     for _ in 1...1_000_000 {
-        print(anotherThing)
+//        print(anotherThing)
     }
 }
 
@@ -609,5 +609,54 @@ func fib(n: Int) -> Int {
 // write a recursive function that take a sentence (a string with words in it) and returns the sentence in reverse order.
 // Hint: string.reverse doesn't do what we want here
 // "here is a string" -> "string a is here", not "gnirts a si ereh"
-//Advice: solve it iteratively first to find the pattern you'll want to apply recursively.
+// Advice: solve it iteratively first to find the pattern you'll want to apply recursively.
 
+//first let's talk about an iterative solution
+
+func reverseSentenceIteratively(input: String) -> String {
+    //this line converts our string into an array of words
+    let inputArray = input.components(separatedBy: " ")
+    var reversedInput = ""
+    //loop through
+    for i in inputArray.reversed() {
+        if reversedInput == "" {
+            //why? There aren't any spaces :( Gotta start without one
+            reversedInput += i
+        } else {
+            //why? for all words after the first one, let's make sure there's a space separating them from the previous one.
+            reversedInput += " \(i)"
+        }
+    }
+    return reversedInput
+}
+
+func reverseSentenceIterativelyOneLine(input:String) -> String {
+    input.components(separatedBy: " ").reversed().joined(separator: " ")
+}
+
+// don't think it's right
+// base case: if the count in the array of words is 1, return the first thing in the array
+// let reversed sentence = array.popLast
+// form the new string from the words left in the sentence array using a join
+
+func reverseSentenceRecursivelyMaybe(input:String) -> String {
+    //    "this is cool" -> ["this", "is", "cool"]
+
+    var sentArr = input.components(separatedBy: " ")
+    
+    //base case - "nice"
+    if sentArr.count == 1 {
+      return sentArr[0]
+    }
+    
+    let reverseSent = sentArr.popLast()! //cool, [this, is]
+    
+    let newString = sentArr.joined(separator: " ") //"this is"
+    // cool + " " + f("this is")
+    // cool + " " + "is" + " " + f("this")
+    // cool + " " + "is" + " " + "this"
+
+    return reverseSent + " " + reverseSentenceRecursivelyMaybe(input: newString)
+    
+    //call self inside of self
+}
