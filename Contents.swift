@@ -435,3 +435,124 @@ breadthFirstSearch(root: treeNode1)
 
 
 //Depth-First Search ⚓️⚓️ -> We will review in the future
+
+
+// How do we do stuff -> Algorithms
+// list of instructions that helps us do stuff
+// What does that mean on a computer?
+// Function -> could be an algorithm or part of one
+// Programs -> Apps
+// "Software" -> using algorithms to solve problems
+
+// What are the two  major limitations of algorithms? (physics problems)
+// time complexity and space complexity
+// our programs are going to execute in real time (4th dimension!)
+// our programs need to store things (1st-3rd dimensions)
+
+// big-O notation - time and space, but generally when we evaluate algorithms, we're looking at time.
+
+// Space complexity - how much information needs to be stored
+//O(1) space (things saved)
+func constantSpaceFunction(something: Int) {
+    let anotherThing = something
+    for _ in 1...1_000_000 {
+        print(anotherThing)
+    }
+}
+
+//O(n) space (things saved)
+func linearSpaceFunction(somethings: [Int]) {
+    for currentThing in somethings {
+        var anotherThing = currentThing
+        print(anotherThing)
+    }
+}
+
+//O(n^2) space (things saved)
+func quadraticSpaceFunction(somethings: [Int]) {
+    for _ in somethings {
+        for currentThing in somethings {
+
+        var anotherThing = currentThing
+        print(anotherThing)
+        }
+        
+    }
+}
+
+//look out for loops! look out for while loops!
+
+//What does complexity mean for us?
+// It's measuring the best case scenario, the worst case scenario, and the "average" case scenario
+
+//Time complexity:
+
+//O(1) time function (if you care about math, this is n^0)
+
+func printTheThing(something:[[Int]]) {
+    print(something)
+}
+
+//another O(1) time function
+
+func printAHundredThings(something:[[Int]]) {
+    for i in 1...100 {
+        print(something)
+    }
+}
+
+// this isn't O(1), it's O(n)
+func printNTimes(something: [[Int]]) {
+    for i in something {
+        //this prints arrays n times
+        print(i)
+    }
+}
+
+// another O(n) function, where n is number ofTimes
+func printTheSpecifiedNumberOfTimes(phrase toPrint:String, number ofTimes:Int) {
+    for i in 1...ofTimes {
+        print(toPrint)
+    }
+}
+
+// compound complexity -> O(a * b) -> O(ab) -> we end up here O(n^2)
+// O(m * n)
+func printSomeCombinedNumberOfTimes(phrase toPrint: String, aNumber: Int, bNumber: Int) {
+    for _ in 1...aNumber {
+        for _ in 1...bNumber {
+            print(toPrint)
+        }
+    }
+}
+
+//O(n^2)
+func printAQuadraticNumberOfTimes(phrase toPrint: String, aNumber: Int) {
+    for _ in 1...aNumber {
+        for _ in 1...aNumber {
+            print(toPrint)
+        }
+    }
+}
+
+//What's the complexity? O(a*b)
+func printSomeTimes(something: [[Int]]) {
+    for a in something {
+        for b in a {
+            print(b)
+        }
+        //this prints arrays n times
+    }
+}
+
+//O(a+b) -> O(n)
+func printSomeAddedNumberOfTimes(phrase toPrint: String, aNumber: Int, bNumber: Int) {
+    for _ in 1...aNumber {
+        print(toPrint)
+    }
+    
+    for _ in 1...bNumber {
+        print(toPrint)
+    }
+}
+
